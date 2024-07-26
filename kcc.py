@@ -3,11 +3,11 @@ from openai import OpenAI
 import streamlit as st
 import os
 
-assistant_id = 'asst_gSo5oyon5bH785Wcw59V2obe'
+assistant_id = st.secrets['ASSISTANT_ID']
 openai_api_key = st.secrets['OPENAPI_KEY']
 client = OpenAI(api_key=openai_api_key)
-thread_id = 'thread_dZa3CREaD7kBBtlgZIoALyYb'
-vector_id ='vs_syyWW8UtZcNVf54nyrQxp40G'
+thread_id =st.secrets['THREAD_ID ']
+vector_id =st.secrets['VECTOR_ID']
 
 assistant = client.beta.assistants.update(
   assistant_id=assistant_id,
