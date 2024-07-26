@@ -16,10 +16,10 @@ assistant = client.beta.assistants.update(
 
 
 if "messages" not in st.session_state:
-    st.session_state["messages"]=[{"role":"assistant","content":"안녕하세요, KCC글라스 사내규정 챗봇입니다. 무엇을 도와드릴까요?"}]
+    st.session_state["messages"]=[{"role":"assistant","content":"안녕하세요, 사내 규정에 대해 질문해주세요."}]
     st.caption("Groupware > 사내정보 > 기타정보 > KCC 사규/매뉴얼 관리시스템에서도 확인 할 수 있습니다.")
-    st.info(" 간결하지만 구체적으로 질문해주세요.  :pushpin: 출장규정 알려줘 > 국내 출장 여비 알려줘" , icon="ℹ️" )
-    st.info(" 사용자가 많을 경우 답변이 느려질 수 있습니다.", icon="ℹ️")
+    st.success("규정 카테고리 : [인력운영]  [인력개발]  [인사행정]  [전산]  [경영일반]  [정보보호]  [거버넌스]", icon="✔️")
+    st.warning(" 사용자가 많을 경우 답변이 느려질 수 있습니다.", icon="⚠️")
 for msg in st.session_state.messages:
     st.chat_message(msg["role"]).write(msg["content"])
 
@@ -50,18 +50,17 @@ if prompt := st.chat_input():
             assistant_id = assistant.id,
         )
 
+        thread_messsage = client.beta.threads.messages.list(thread_id)
+        msg = thread_messsage.data[0].content[0].text.value
+        time.sleep(1)
+        st.session_state.messages.append({"role": "assisant", "content": msg})
+
+      
         if run.status == 'completed':
+            st.chat_message("assistant").write(msg)
             break
         else:
+            st.chat_message("assistant").write("규정을 찾을 수 없습니다.")
             break
             print(run.status)
-
-
-
-    thread_messsage = client.beta.threads.messages.list(thread_id)
-    msg = thread_messsage.data[0].content[0].text.value
-    time.sleep(1)
-    st.session_state.messages.append({"role": "assisant", "content": msg})
-    st.chat_message("assistant").write(msg)
-
 
