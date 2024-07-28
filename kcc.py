@@ -6,7 +6,10 @@ import os
 assistant_id = 'asst_gSo5oyon5bH785Wcw59V2obe'
 openai_api_key = st.secrets['OPENAPI_KEY']
 client = OpenAI(api_key=openai_api_key)
-thread_id = 'thread_dZa3CREaD7kBBtlgZIoALyYb'
+# thread_id = 'thread_dZa3CREaD7kBBtlgZIoALyYb'
+thread = client.beta.threads.create()
+thread_id = thread.id
+
 vector_id ='vs_syyWW8UtZcNVf54nyrQxp40G'
 
 assistant = client.beta.assistants.update(
