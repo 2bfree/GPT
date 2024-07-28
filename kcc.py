@@ -9,6 +9,7 @@ client = OpenAI(api_key=openai_api_key)
 # thread_id = 'thread_dZa3CREaD7kBBtlgZIoALyYb'
 thread = client.beta.threads.create()
 thread_id = thread.id
+st.title("KCC글라스 사내규정 챗봇")
 
 vector_id ='vs_syyWW8UtZcNVf54nyrQxp40G'
 
