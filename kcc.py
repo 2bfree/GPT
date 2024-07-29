@@ -23,8 +23,7 @@ if "messages" not in st.session_state:
     st.session_state["messages"]=[{"role":"assistant","content":"안녕하세요, 사내 규정에 대해 질문해주세요."}]
     st.caption("Groupware > 사내정보 > 기타정보 > KCC 사규/매뉴얼 관리시스템에서도 확인 할 수 있습니다.")
 
-    st.success("전체 규정이 궁금하신 경우 : 전체 내용 요약해줘 
-    복리 후생이 궁금하신 경우 : 복리후생 관련 규정 요약해줘 라고 질문해보세요.", icon="✔️")
+    st.success("전체 규정이 궁금하신 경우 : 『전체 내용 요약해줘』 복리 후생이 궁금하신 경우 : 『복리후생 관련 규정 요약해줘』 라고 질문해보세요.", icon="✔️")
 
 #    st.success("규정 카테고리 : [인력운영]  [인력개발]  [인사행정]  [전산]  [경영일반]  [정보보호]  [거버넌스]", icon="✔️")
     st.warning(" 사용자가 많을 경우 답변이 느려질 수 있습니다.", icon="⚠️")
