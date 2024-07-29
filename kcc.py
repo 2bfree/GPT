@@ -26,7 +26,7 @@ if "messages" not in st.session_state:
     st.success("전체 규정이 궁금하신 경우 : 『전체 내용 요약해줘』                          복리 후생이 궁금하신 경우 : 『복리후생 관련 규정 요약해줘』 라고 질문해보세요.", icon="✔️")
 
 #    st.success("규정 카테고리 : [인력운영]  [인력개발]  [인사행정]  [전산]  [경영일반]  [정보보호]  [거버넌스]", icon="✔️")
-    st.warning(" 사용자가 많을 경우 답변이 느려질 수 있습니다.", icon="⚠️")
+#    st.warning(" 사용자가 많을 경우 답변이 느려질 수 있습니다.", icon="⚠️")
     st.caption("⚠️사용자가 많을 경우 답변이 느려질 수 있습니다.")
 for msg in st.session_state.messages:
     st.chat_message(msg["role"]).write(msg["content"])
