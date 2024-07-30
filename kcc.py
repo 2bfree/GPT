@@ -6,6 +6,7 @@ import os
 
 assistant_id = 'asst_gSo5oyon5bH785Wcw59V2obe'
 openai_api_key = st.secrets['OPENAPI_KEY']
+# openai_api_key = os.getenv("OPENAI_API_KEY")
 client = OpenAI(api_key=openai_api_key)
 
 thread = client.beta.threads.create()
@@ -43,7 +44,6 @@ st.sidebar.text(' - 하자및폐기발생에 대한 사후조치')
 st.sidebar.text(' - 회수불능채권에 대한 사후조치')
 st.sidebar.text(' ')
 
-
 st.sidebar.header('[경영]')
 st.sidebar.text(' - 국내/해외출장')
 st.sidebar.text(' - 복리후생')
@@ -70,7 +70,6 @@ st.sidebar.text(' - 보안')
 st.sidebar.text(' - 당직근무')
 st.sidebar.text(' - 안전사고발생에 대한 사후조치')
 st.sidebar.text(' ')
-
 
 st.sidebar.header('[자산]')
 st.sidebar.text(' - 부동산관리')
@@ -100,20 +99,17 @@ st.sidebar.subheader('')
 st.sidebar.header('[정보보호]')
 
 
-
 if "messages" not in st.session_state:
     st.session_state["messages"] = [{"role": "assistant", "content": "안녕하세요, 사내 규정에 대해 질문해주세요."}]
     st.caption("Groupware > 사내정보 > 기타정보 > KCC 사규/매뉴얼 관리시스템에서도 확인 할 수 있습니다.")
-
-    # st.success("규정 카테고리 : [전산] [인사] [경영] [안전] [정보보호] [자산] [준법] [거버넌스] ", icon="✔️")
-    st.success(" ex) 사원일 때 휴대전화 지원금액 알려줘.", icon="✔️")
-
-    #    st.success("규정 카테고리 : [인력운영]  [인력개발]  [인사행정]  [전산]  [경영일반]  [정보보호]  [거버넌스]", icon="✔️")
-    #    st.warning(" 사용자가 많을 경우 답변이 느려질 수 있습니다.", icon="⚠️")
+    st.success(" ex) 휴대전화 지원 대상하고 금액 알려줘.", icon="✔️")
     st.caption("  ⚠️사용자가 많을 경우 답변이 느려질 수 있습니다.")
+
 st.divider()
+
 for msg in st.session_state.messages:
     st.chat_message(msg["role"]).write(msg["content"])
+
 
 if prompt := st.chat_input():
     if not openai_api_key:
@@ -124,29 +120,36 @@ if prompt := st.chat_input():
         st.info("Check your Thread ID")
         st.stop()
 
-    st.session_state.messages.append({"role": "user", "content": prompt})
-    st.chat_message("user").write(prompt)
+    max_len = 500
 
-    message = client.beta.threads.messages.create(
-        thread_id=thread_id,
-        role="user",
-        content=prompt
-    )
-    while True:
-        run = client.beta.threads.runs.create_and_poll(
+    if len(prompt) < max_len:
+
+        st.session_state.messages.append({"role": "user", "content": prompt})
+        st.chat_message("user").write(prompt)
+
+        message = client.beta.threads.messages.create(
             thread_id=thread_id,
-            assistant_id=assistant.id,
+            role="user",
+            content=prompt
         )
+        while True:
+            run = client.beta.threads.runs.create_and_poll(
+                thread_id=thread_id,
+                assistant_id=assistant.id,
+            )
 
-        thread_messsage = client.beta.threads.messages.list(thread_id)
-        msg = thread_messsage.data[0].content[0].text.value
-        time.sleep(1)
-        st.session_state.messages.append({"role": "assisant", "content": msg})
+            thread_messsage = client.beta.threads.messages.list(thread_id)
+            msg = thread_messsage.data[0].content[0].text.value
+            time.sleep(1)
+            st.session_state.messages.append({"role": "assisant", "content": msg})
 
-        if run.status == 'completed':
-            st.chat_message("assistant").write(msg)
-            break
-        else:
-            st.chat_message("assistant").write("규정을 찾을 수 없습니다.")
-            break
-            print(run.status)
+            if run.status == 'completed':
+                st.chat_message("assistant").write(msg)
+                break
+            else:
+                st.chat_message("assistant").write("규정을 찾을 수 없습니다.")
+                break
+                print(run.status)
+    else :
+        st.error('입력 단어 개수를 초과했습니다. '+str(max_len)+'자 이내로 입력해주세요!')
+
