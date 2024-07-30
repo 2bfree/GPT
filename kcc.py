@@ -120,7 +120,7 @@ if prompt := st.chat_input():
         st.info("Check your Thread ID")
         st.stop()
 
-    max_len = 500
+    max_len = 50
 
     if len(prompt) < max_len:
 
