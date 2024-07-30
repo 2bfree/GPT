@@ -102,7 +102,7 @@ st.sidebar.header('[정보보호]')
 if "messages" not in st.session_state:
     st.session_state["messages"] = [{"role": "assistant", "content": "안녕하세요, 사내 규정에 대해 질문해주세요."}]
     st.caption("Groupware > 사내정보 > 기타정보 > KCC 사규/매뉴얼 관리시스템에서도 확인 할 수 있습니다.")
-    st.success(" ex) 휴대전화 지원 대상하고 금액 알려줘. (Tip) 구체적이고 명확하게 30자 이내 질문", icon="✔️")
+    st.success(" (Tip) 구체적이고 명확하게 30자 이내 질문 ex) 휴대전화 지원 대상하고 금액 알려줘. ", icon="✔️")
     st.caption("  ⚠️사용자가 많을 경우 답변이 느려질 수 있습니다.")
 
 st.divider()
