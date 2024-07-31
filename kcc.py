@@ -3,17 +3,15 @@ from openai import OpenAI
 import streamlit as st
 import os
 
-
-assistant_id = st.secrets['ASSISTANT_ID']
 openai_api_key = st.secrets['OPENAPI_KEY']
-# openai_api_key = os.getenv("OPENAI_API_KEY")
+assistant_id = st.secrets['ASSISTANT_ID']
 client = OpenAI(api_key=openai_api_key)
 
 thread = client.beta.threads.create()
 thread_id = thread.id
-st.title("KCC글라스 사내규정 챗봇")
-
 vector_id = st.secrets['VECTOR_ID']
+
+st.title("KCC글라스 사내규정 챗봇")
 
 assistant = client.beta.assistants.update(
     assistant_id=assistant_id,
@@ -152,6 +150,7 @@ if prompt := st.chat_input():
             role="user",
             content=prompt
         )
+        
         while True:
             run = client.beta.threads.runs.create_and_poll(
                 thread_id=thread_id,
