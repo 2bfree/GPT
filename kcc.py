@@ -4,7 +4,7 @@ import streamlit as st
 import os
 
 
-assistant_id = 'asst_gSo5oyon5bH785Wcw59V2obe'
+assistant_id = st.secrets['ASSISTANT_ID']
 openai_api_key = st.secrets['OPENAPI_KEY']
 # openai_api_key = os.getenv("OPENAI_API_KEY")
 client = OpenAI(api_key=openai_api_key)
@@ -13,7 +13,7 @@ thread = client.beta.threads.create()
 thread_id = thread.id
 st.title("KCC글라스 사내규정 챗봇")
 
-vector_id = 'vs_syyWW8UtZcNVf54nyrQxp40G'
+vector_id = st.secrets['VECTOR_ID']
 
 assistant = client.beta.assistants.update(
     assistant_id=assistant_id,
