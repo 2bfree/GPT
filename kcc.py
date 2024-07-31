@@ -3,8 +3,8 @@ from openai import OpenAI
 import streamlit as st
 import os
 
-openai_api_key = st.secrets['OPENAPI_KEY']
 assistant_id = st.secrets['ASSISTANT_ID']
+openai_api_key = st.secrets['OPENAPI_KEY']
 client = OpenAI(api_key=openai_api_key)
 
 thread = client.beta.threads.create()
