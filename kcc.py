@@ -5,7 +5,7 @@ import os
 
 
 openai_api_key = st.secrets['OPENAPI_KEY']
-assistant_id = st.secrets['ASSISTANT_ID']
+assistant_id = 'asst_gSo5oyon5bH785Wcw59V2obe'
 client = OpenAI(api_key=openai_api_key)
 
 thread = client.beta.threads.create()
