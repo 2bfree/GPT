@@ -149,7 +149,7 @@ if prompt := st.chat_input():
         message = client.beta.threads.messages.create(
             thread_id=thread_id,
             role="user",
-            content=prompt
+            content=prompt+" 참조 빼고 말해줘"
         )
         
         while True:
