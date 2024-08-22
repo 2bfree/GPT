@@ -12,7 +12,7 @@ thread = client.beta.threads.create()
 thread_id = thread.id
 vector_id = 'vs_syyWW8UtZcNVf54nyrQxp40G'
 
-st.title("KCC글라스 사내규정 챗봇")
+st.title("SFA 검색")
 
 assistant = client.beta.assistants.update(
     assistant_id=assistant_id,
